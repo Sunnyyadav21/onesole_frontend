@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 
 export default defineConfig({
-  base: '/medicalapp/', // ✅ important: this fixes your build paths
+  base: '/medicalapp/', // 👈 important
   plugins: [react()],
   define: { 'process.env': {} },
   resolve: {
@@ -13,7 +13,7 @@ export default defineConfig({
     },
   },
   server: {
-    allowedHosts: ['onesoulcare.in'], // ✅ allows domain in dev
+    allowedHosts: ['onesoulcare.in'],
     host: true,
     port: 5173,
   },
