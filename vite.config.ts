@@ -14,6 +14,8 @@ export default defineConfig({
     },
   },
   server: {
-    allowedHosts: ['onesoulcare.in'], // ✅ allow your domain
+    allowedHosts: ['onesoulcare.in'], // ✅ Allow your domain
+    host: true, // ✅ Optional: allows access from external hosts/IPs
+    port: 5173, // (change if you’re using another port)
   },
 })
