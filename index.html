@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="/favicon.ico" type="image/svg+xml" href="/logo.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medical App</title>
+  <style>
+    #splash-screen {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      background: white;
+      display: flex;
+      height: 100%;
+      width: 100%;
+      transform: translate(-50%, -50%);
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 1;
+      transition: all 15s linear;
+      overflow: hidden;
+    }
+
+    #splash-screen.remove {
+      animation: fadeout 0.7s forwards;
+      z-index: 0;
+    }
+
+    @keyframes fadeout {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+  <div id="splash-screen">
+    <!-- <h3>Medical App</h3> -->
+    <img alt="Logo" class="light" src="/images/logo-dark.png" style="height: 10%" />
+  </div>
+  <script type="module" src="/src/main.tsx"></script>
+  <script>
+    // Create a MutationObserver to observe changes in the DOM
+    const observer = new MutationObserver((mutationsList, observer) => {
+      for (const mutation of mutationsList) {
+        if (mutation.addedNodes.length > 0) {
+          // If nodes are added to the root, remove the splash screen
+          document.querySelector('#splash-screen')?.classList.add('remove');
+          // Stop observing after the splash screen is removed
+          observer.disconnect();
+        }
+      }
+    });
+
+    // Start observing the #root element for child node changes
+    observer.observe(document.querySelector('#root'), { childList: true });
+
+    // Handle user role
+    const user = localStorage.getItem('user-details');
+    if (user) {
+      const body = document.querySelector('body');
+      const userRole = JSON.parse(user).role;
+      if (userRole === 'user') {
+        body.classList.add('user');
+      }
+    }
+    // console.log(JSON.parse(user).role)
+  </script>
+</body>
+
+</html>
